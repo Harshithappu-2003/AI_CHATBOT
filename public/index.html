@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Chat with Smart Bot who speaks like a Pirate</h1>
+    <input type="text" id="userInput" placeholder="Ask a question">
+    <button onclick="SendMessage()">Send</button>
+    <div id="chatbox"></div>
+
+    <script>
+        async function SendMessage() {
+            const userInput = document.getElementById("userInput").value;
+            const response = await fetch('/chat', { //end point (define it in backend also -server.js)
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    },
+            body: JSON.stringify({ message: userInput })
+            });
+
+            const data = await response.json();
+            const chatbox = document.getElementById("chatbox");
+            chatbox.innerHTML += `<p>Smart Bot: ${data.reply}</p>`;
+        }
+    </script>
+</body>
+</html>
