@@ -1,61 +1,50 @@
-# Smart Bot - Chat Like a Pirate!
+# React + TypeScript + Vite
 
-A simple yet engaging chat application where you can converse with a smart bot that speaks like a pirate! This application combines the power of OpenAI's GPT-3.5-turbo with a clean front-end interface to deliver a fun and unique chatting experience.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## Features
-- **Pirate-Themed Conversations**: The bot responds to user inputs with pirate-like language for a quirky and entertaining experience.
-- **Seamless OpenAI API Integration**: Uses OpenAI's GPT-3.5-turbo model to generate creative and contextually accurate responses.
-- **Lightweight Backend**: Built using Node.js and Express.js for quick and efficient server-side operations.
-- **Interactive Front-End**: A simple and responsive web interface created with HTML and JavaScript for user interactions.
-- **JSON API Endpoint**: Backend exposes a POST endpoint (`/chat`) for handling and processing user inputs.
-- **Error Handling**: Includes proper error handling on the server to ensure smooth operation.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
----
+## Expanding the ESLint configuration
 
-## Installation
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-### Prerequisites
-- **Node.js**: Ensure Node.js is installed on your system.
-- **OpenAI API Key**: Obtain an API key from OpenAI by signing up on their [official website](https://openai.com/).
+- Configure the top-level `parserOptions` property like this:
 
-### Steps to Install
-1. Clone the repository to your local system:
-   ```bash
-   git clone https://github.com/Harshithappu-2003/AI_CHATBOT.git
-2. Navigate to the project directory
-   cd AI_CHATBOT
-3. Install dependencies
-   npm install
-# Usage
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
 
-## Interacting with the Chatbot
-1. Enter your message in the input field on the webpage.
-2. Click the "Send" button.
-3. The bot will respond in pirate style in the chatbox below.
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
----
+```js
+// eslint.config.js
+import react from 'eslint-plugin-react'
 
-# Project Structure
-
-## Files and Their Roles
-- **`server.js`**: Handles the backend logic, OpenAI API integration, and server setup.
-- **`public/index.html`**: The frontend of the application, where users interact with the bot.
-- **`.env`**: Stores sensitive information like the OpenAI API key.
-
----
-
-# API Endpoints
-
-## `/chat`
-- **Method**: POST  
-- **Description**: Accepts a user message and returns the chatbot's pirate-style response.  
-- **Request Body**:
-  ```json
-  {
-    "message": "Your question or statement"
-  }
-
-
-
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: '18.3' } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs['jsx-runtime'].rules,
+  },
+})
+```
